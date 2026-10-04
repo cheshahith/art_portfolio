@@ -8,6 +8,8 @@ import {
   Cormorant_Garamond,
   DM_Sans,
   Libre_Baskerville,
+  Lobster_Two,
+  Rozha_One,
 } from "next/font/google";
 import "./globals.css";
 import { IntroProvider } from "@/components/IntroProvider";
@@ -15,11 +17,28 @@ import IntroOverlay from "@/components/IntroOverlay";
 import Navbar from "@/components/Navbar";
 import GameButton from "@/components/GameButton";
 
-// Intro Greeting Font: Instrument Serif, weight 400, upright
+// Rozha One font for Behind the Canvas section title and headings
+const rozhaOne = Rozha_One({
+  subsets: ["latin"],
+  weight: "400",
+  variable: "--font-rozha",
+  display: "swap",
+});
+
+// Lobster Two font
+const lobsterTwo = Lobster_Two({
+  subsets: ["latin"],
+  weight: ["400", "700"],
+  style: ["normal", "italic"],
+  variable: "--font-lobster-two",
+  display: "swap",
+});
+
+// Intro Greeting Font: Instrument Serif, weight 400
 const instrumentSerif = Instrument_Serif({
   subsets: ["latin"],
   weight: "400",
-  style: "normal",
+  style: ["normal", "italic"],
   variable: "--font-instrument",
   display: "swap",
 });
@@ -129,7 +148,7 @@ export default function RootLayout({
     <html
       lang="en"
       data-scroll-behavior="smooth"
-      className={`${instrumentSerif.variable} ${playfair.variable} ${libreBaskerville.variable} ${cormorant.variable} ${dmSans.variable} ${notoTamil.variable} ${inter.variable} ${caveat.variable} h-full scroll-smooth`}
+      className={`${rozhaOne.variable} ${lobsterTwo.variable} ${instrumentSerif.variable} ${playfair.variable} ${libreBaskerville.variable} ${cormorant.variable} ${dmSans.variable} ${notoTamil.variable} ${inter.variable} ${caveat.variable} h-full scroll-smooth`}
     >
       <body className="min-h-full flex flex-col bg-[#6C1A1A] text-[#F5EFE1] antialiased selection:bg-[#AEC4D4] selection:text-[#6C1A1A]">
         <IntroProvider>

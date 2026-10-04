@@ -2,6 +2,7 @@ import React from "react";
 import type { Metadata } from "next";
 import PageHeader from "@/components/PageHeader";
 import Gallery from "@/components/Gallery";
+import PageIntro from "@/components/PageIntro";
 import { lineArt } from "@/data/artworks";
 
 export const metadata: Metadata = {
@@ -13,6 +14,7 @@ export const metadata: Metadata = {
 export default function LineArtPage() {
   return (
     <div className="flex-1 flex flex-col bg-[#F5EFE1] min-h-screen text-[#790D16]">
+      <PageIntro text="INK ON PAPER" variant="dither" />
       <PageHeader
         categoryName="Collection 02"
         title="Line Art"

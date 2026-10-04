@@ -7,6 +7,20 @@ const nextConfig: NextConfig = {
     contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
     qualities: [75, 80],
   },
+  async redirects() {
+    return [
+      {
+        source: "/worst-art",
+        destination: "/ugly",
+        permanent: true,
+      },
+      {
+        source: "/worst",
+        destination: "/ugly",
+        permanent: true,
+      },
+    ];
+  },
 };
 
 export default nextConfig;

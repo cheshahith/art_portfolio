@@ -9,7 +9,7 @@ import { Eye, AlertCircle, Sparkles } from "lucide-react";
 
 interface GalleryProps {
   items: Artwork[];
-  variant?: "oil" | "line" | "worst";
+  variant?: "oil" | "line" | "worst" | "ugly";
 }
 
 export default function Gallery({ items, variant = "oil" }: GalleryProps) {
@@ -38,13 +38,13 @@ export default function Gallery({ items, variant = "oil" }: GalleryProps) {
           {items.map((artwork, index) => {
             const isFirstRow = index < 3;
 
-            // Rotation angle for worst art variant
-            const tiltRotation =
-              variant === "worst"
-                ? index % 2 === 0
-                  ? "-rotate-1 sm:-rotate-2"
-                  : "rotate-1 sm:rotate-2"
-                : "";
+            // Rotation angle for ugly/worst art variant
+            const isUglyVariant = variant === "worst" || variant === "ugly";
+            const tiltRotation = isUglyVariant
+              ? index % 2 === 0
+                ? "-rotate-1 sm:-rotate-2"
+                : "rotate-1 sm:rotate-2"
+              : "";
 
             return (
               <motion.div
@@ -147,8 +147,8 @@ export default function Gallery({ items, variant = "oil" }: GalleryProps) {
                   </div>
                 )}
 
-                {/* Variant 3: WORST ART (Sand cards with slight tilt, Caveat captions in burgundy) */}
-                {variant === "worst" && (
+                {/* Variant 3: UGLY ART (Sand cards with slight tilt, Caveat captions in burgundy) */}
+                {(variant === "worst" || variant === "ugly") && (
                   <div
                     onClick={() => setSelectedArtworkIndex(index)}
                     className={`group relative rounded-xl p-4 sm:p-5 bg-[#E5D3AF] border border-[#790D16]/25 hover:border-[#790D16]/70 shadow-sm hover:shadow-lg ${tiltRotation} hover:rotate-0 transition-all duration-300 cursor-pointer overflow-visible`}

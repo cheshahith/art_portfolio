@@ -11,7 +11,7 @@ import { useIntro } from "@/components/IntroProvider";
 // =======================================================================
 const HOME_BG = "#6C1A1A"; // Measured from mockup; switch to #790D16 if desired
 const HOME_TEXT = "#AEC4D4"; // Soft blue greeting & accent text
-const HERO_GREETING = "hello, I'm che"; // Arched greeting text (exact spacing)
+const HERO_GREETING = "Hello, I'm Che"; // Arched greeting text (exact spacing)
 
 // Path to circular portrait photo (stored in /public/images/home/che.jpg)
 const PHOTO_PATH = "/images/home/che.jpg";
@@ -271,62 +271,92 @@ export default function HomePage() {
               ART
             </div>
 
-            <div
-              style={{ color: HOME_TEXT }}
-              className="text-xs uppercase tracking-widest font-semibold mb-3 font-[var(--font-dmsans)]"
-            >
-              Artist Statement & Philosophy
-            </div>
-
             <h2
-              style={{ color: HOME_TEXT }}
-              className="font-[var(--font-playfair)] italic text-3xl sm:text-5xl font-normal mb-8"
+              style={{
+                color: "#B6C3D2",
+                fontFamily: "var(--font-rozha), serif",
+                fontWeight: 400,
+                fontStyle: "normal",
+                textTransform: "uppercase",
+                letterSpacing: "0.01em",
+                lineHeight: 1.05,
+              }}
+              className="text-[36px] sm:text-[clamp(40px,5.5vw,64px)] mb-8"
             >
               Behind the Canvas
             </h2>
 
-            <div className="space-y-6 font-[var(--font-dmsans)] text-sm sm:text-base text-[#F5EFE1] leading-relaxed font-light">
-              <p>
+            <div className="space-y-8 text-[#F5EFE1]">
+              <div>
                 <strong
-                  style={{ color: HOME_TEXT }}
-                  className="font-normal font-[var(--font-playfair)] italic text-xl block mb-1"
+                  style={{
+                    color: "#B6C3D2",
+                    fontFamily: "var(--font-rozha), serif",
+                    fontWeight: 400,
+                    fontStyle: "normal",
+                    textTransform: "uppercase",
+                    lineHeight: 1.2,
+                  }}
+                  className="text-[22px] sm:text-[28px] block mb-2"
                 >
                   Why I Make Art
                 </strong>
-                [Placeholder] Art has always been my primary language for translating sensations that words fail to capture. Whether watching the foam crest over a midnight tide or feeling the quiet weight of an empty room, painting allows me to give permanence to transient emotional states.
-              </p>
+                <p
+                  style={{
+                    fontFamily: "var(--font-instrument), Georgia, serif",
+                  }}
+                  className="text-xl sm:text-2xl text-[#F5EFE1]/90 leading-relaxed font-normal"
+                >
+                  I make art because it&apos;s the only time my head goes quiet. Most of my days are loud, fast and half-finished. A brush and some paint slow all of that down, and for a few hours I&apos;m just here, doing one thing, feeling peaceful.
+                </p>
+              </div>
 
-              <p>
+              <div>
                 <strong
-                  style={{ color: HOME_TEXT }}
-                  className="font-normal font-[var(--font-playfair)] italic text-xl block mb-1"
+                  style={{
+                    color: "#B6C3D2",
+                    fontFamily: "var(--font-rozha), serif",
+                    fontWeight: 400,
+                    fontStyle: "normal",
+                    textTransform: "uppercase",
+                    lineHeight: 1.2,
+                  }}
+                  className="text-[22px] sm:text-[28px] block mb-2"
                 >
                   What My Work Is About
                 </strong>
-                [Placeholder] My practice oscillates between two distinct poles: the heavy, layered permanence of oil glazes and the razor-sharp immediacy of minimalist ink on raw cotton. I am endlessly fascinated by negative space—how the unpainted areas of a canvas carry as much resonance as the heaviest brushstrokes.
-              </p>
-
-              <p>
-                <strong
-                  style={{ color: HOME_TEXT }}
-                  className="font-normal font-[var(--font-playfair)] italic text-xl block mb-1"
+                <p
+                  style={{
+                    fontFamily: "var(--font-instrument), Georgia, serif",
+                  }}
+                  className="text-xl sm:text-2xl text-[#F5EFE1]/90 leading-relaxed font-normal mb-4"
                 >
-                  How I Work
-                </strong>
-                [Placeholder] Every piece begins with intuition and loose sketches, often working in natural daylight. I embrace accidental discoveries—a glaze running off course, a slight jitter in the pen line, or natural textures within the paper. To me, authenticity lives directly inside the imperfections.
-              </p>
+                  My work is about the rush before the calm. It&apos;s the fun, the excitement, and the restless &ldquo;when will this finally end?&rdquo; that builds up in me until I have to put it somewhere. Some of it ends up on the canvas looking beautiful. Some of it ends up looking like a disaster.
+                </p>
+
+                <blockquote
+                  style={{
+                    color: "#B6C3D2",
+                    fontFamily: "var(--font-rozha), serif",
+                    fontWeight: 400,
+                    fontStyle: "normal",
+                    textTransform: "uppercase",
+                    fontSize: "clamp(26px, 3.5vw, 36px)",
+                    lineHeight: 1.25,
+                  }}
+                  className="mt-4 block"
+                >
+                  I keep both, because both are honest.
+                </blockquote>
+              </div>
             </div>
 
-            <div className="mt-8 pt-6 border-t border-[#AEC4D4]/20 flex items-center justify-between">
-              <div
-                style={{ color: HOME_TEXT }}
-                className="font-[var(--font-playfair)] italic text-lg"
-              >
-                — Che
-              </div>
-              <div className="text-xs text-[#F5EFE1]/60 uppercase tracking-widest font-[var(--font-dmsans)]">
-                Studio &bull; 2026
-              </div>
+            <div className="mt-8 pt-6 border-t border-[#AEC4D4]/20">
+              <img
+                src="/signature.png"
+                alt="Che's signature"
+                className="w-[110px] sm:w-[140px] h-auto block mt-[8px]"
+              />
             </div>
           </motion.div>
         </section>

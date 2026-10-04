@@ -13,7 +13,7 @@ export const NAV_ITEMS = [
   { name: "Home", href: "/" },
   { name: "Oil Paintings", href: "/oil-paintings" },
   { name: "Line Art", href: "/line-art" },
-  { name: "Worst Art", href: "/worst-art" },
+  { name: "Ugly", href: "/ugly" },
 ];
 
 export default function Navbar() {
