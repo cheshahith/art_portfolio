@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 850 1150" width="850" height="1150">
+  <!-- Paper Background -->
+  <rect width="100%" height="100%" fill="#f5efe6"/>
+  <rect x="24" y="24" width="802" height="1102" fill="none" stroke="rgba(21,36,56,0.12)" stroke-width="1.5"/>
+
+  <!-- Ink Art -->
+  <g>
+    
+      <circle cx="340" cy="402.5" r="153" fill="#d4a24c" opacity="0.2"/>
+      <path d="M 297.5 230 C 510 207, 595 402.5, 527 517.5 C 492.99999999999994 598, 578 632.5, 527 747.5 C 492.99999999999994 805, 408 897, 323 943 L 323 1035" fill="none" stroke="#0e1c2e" stroke-width="3.5" stroke-linecap="round"/>
+      <path d="M 408 483 Q 442 529 399.5 598" fill="none" stroke="#0e1c2e" stroke-width="3"/>
+      <path d="M 408 690 Q 476.00000000000006 724.5 425 782" fill="none" stroke="#0e1c2e" stroke-width="3.5"/>
+    
+  </g>
+
+  <!-- Emboss / Ink Stamp Details -->
+  <circle cx="697" cy="1012" r="22" fill="none" stroke="#d4a24c" stroke-width="1.5" stroke-dasharray="4 2"/>
+  <text x="697" y="1016" font-family="sans-serif" font-size="11" fill="#d4a24c" text-anchor="middle" font-weight="bold">INK</text>
+  <text x="85" y="1114" font-family="sans-serif" font-size="12" fill="#79654c" letter-spacing="3">SERIES LINE-2</text>
+</svg>

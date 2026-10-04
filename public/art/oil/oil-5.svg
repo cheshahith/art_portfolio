@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 750" width="1100" height="750">
+  <defs>
+    <radialGradient id="grad1_oil-5" cx="40%" cy="35%" r="70%">
+      <stop offset="0%" stop-color="#a8d0e6" stop-opacity="0.9"/>
+      <stop offset="35%" stop-color="#205072" stop-opacity="0.8"/>
+      <stop offset="70%" stop-color="#0d2b45" stop-opacity="0.95"/>
+      <stop offset="100%" stop-color="#071224" stop-opacity="1"/>
+    </radialGradient>
+    <linearGradient id="goldGlow_oil-5" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#f0c987" stop-opacity="0.8"/>
+      <stop offset="50%" stop-color="#d4a24c" stop-opacity="0.5"/>
+      <stop offset="100%" stop-color="#8a6320" stop-opacity="0.1"/>
+    </linearGradient>
+    <filter id="noise_oil-5" x="0%" y="0%" width="100%" height="100%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.015" numOctaves="4" result="noise"/>
+      <feColorMatrix type="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 0.18 0"/>
+      <feComposite in2="SourceGraphic" in="gl" operator="in"/>
+    </filter>
+  </defs>
+
+  <!-- Background Base -->
+  <rect width="100%" height="100%" fill="#0a192f"/>
+  <rect width="100%" height="100%" fill="url(#grad1_oil-5)"/>
+
+  <!-- Artistic Textured Strokes -->
+  <g opacity="0.65" filter="url(#noise_oil-5)">
+    <ellipse cx="495" cy="300" rx="418" ry="210.00000000000003" fill="url(#goldGlow_oil-5)" transform="rotate(-15 495 300)"/>
+    <path d="M 110 525 Q 440 225 990 375 T 880 637.5" fill="none" stroke="#f5efe6" stroke-width="66" stroke-linecap="round" opacity="0.4"/>
+    <path d="M 55 375 Q 550 637.5 1045 262.5" fill="none" stroke="#f0c987" stroke-width="44" stroke-linecap="round" opacity="0.6"/>
+    <path d="M 220 150 Q 660 75 880 300 T 550 675" fill="none" stroke="#f0c987" stroke-width="27.5" stroke-linecap="round" opacity="0.7"/>
+    <circle cx="715" cy="262.5" r="132" fill="#f0c987" opacity="0.35" />
+    <circle cx="385" cy="487.5" r="198" fill="#205072" opacity="0.5" />
+  </g>
+
+  <!-- Gold Leaf Impasto Accents -->
+  <g opacity="0.85">
+    <path d="M 330 337.5 C 418 262.5, 660 315, 792 240" fill="none" stroke="#f6dcab" stroke-width="5" stroke-dasharray="12 6" opacity="0.8"/>
+    <path d="M 220 450 C 495 412.50000000000006, 605 562.5, 935 510.00000000000006" fill="none" stroke="#d4a24c" stroke-width="7" opacity="0.9"/>
+  </g>
+
+  <!-- Subtle Vignette Frame -->
+  <rect width="100%" height="100%" fill="none" stroke="rgba(212,162,76,0.25)" stroke-width="2"/>
+  <text x="1070" y="720" font-family="serif" font-size="16" fill="rgba(240,201,135,0.4)" text-anchor="end" font-style="italic">Original Oil on Canvas</text>
+</svg>

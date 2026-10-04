@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 900" width="1000" height="900">
+  <!-- Outer Dark/Wood Background -->
+  <rect width="100%" height="100%" fill="#1a222d"/>
+
+  <!-- Paper Card (Slightly Angled Look) -->
+  <g transform="translate(60, 54)">
+    <rect width="880" height="792" rx="8" fill="#f8f2e6" stroke="#d6ccb8" stroke-width="2"/>
+    
+    <!-- Grid pattern on paper -->
+    <defs>
+      <pattern id="grid_worst-2" width="20" height="20" patternUnits="userSpaceOnUse">
+        <path d="M 20 0 L 0 0 0 20" fill="none" stroke="rgba(0,0,0,0.05)" stroke-width="1"/>
+      </pattern>
+    </defs>
+    <rect width="880" height="792" rx="8" fill="url(#grid_worst-2)"/>
+
+    <!-- Doodle Content -->
+    
+      <!-- Palm -->
+      <path d="M 350 720 L 320 495.00000000000006 Q 500 405 680 495.00000000000006 L 650 720 Z" fill="#ffd4b2" stroke="#4a2e18" stroke-width="4"/>
+      <!-- 7 weird fingers -->
+      <path d="M 320 495.00000000000006 C 220 405, 200 315, 260 288 C 320 315, 350 405, 360 468" fill="#ffd4b2" stroke="#4a2e18" stroke-width="4"/>
+      <path d="M 360 450 C 340 225, 380 162, 420 180 C 460 225, 420 405, 420 432" fill="#ffd4b2" stroke="#4a2e18" stroke-width="4"/>
+      <path d="M 430 432 C 450 198, 490 144, 530 162 C 570 198, 510 405, 500 432" fill="#ffd4b2" stroke="#4a2e18" stroke-width="4"/>
+      <path d="M 500 432 C 540 216, 580 180, 620 198 C 660 234, 600 405, 570 441" fill="#ffd4b2" stroke="#4a2e18" stroke-width="4"/>
+      <path d="M 580 441 C 640 252.00000000000003, 680 234, 720 270 C 750 315, 680 432, 640 468" fill="#ffd4b2" stroke="#4a2e18" stroke-width="4"/>
+      <path d="M 640 477 C 740 342, 780 333, 810 378 C 830 432, 740 504.00000000000006, 680 522" fill="#ffd4b2" stroke="#4a2e18" stroke-width="4"/>
+      <path d="M 680 531 C 800 468, 850 495.00000000000006, 840 558 C 820 612, 750 630, 660 648" fill="#ffd4b2" stroke="#4a2e18" stroke-width="4"/>
+      <text x="500" y="810" font-family="cursive" font-size="24" fill="#a83232" text-anchor="middle">"Why are there seven?!"</text>
+    
+
+    <!-- Washi Tape Accent on Top-Right -->
+    <rect x="650" y="-12" width="220" height="32" rx="2" fill="rgba(212,162,76,0.65)" transform="rotate(12 650 0)"/>
+    <!-- Washi Tape Accent on Bottom-Left -->
+    <rect x="-10" y="675" width="200" height="28" rx="2" fill="rgba(230,126,34,0.55)" transform="rotate(-8 0 675)"/>
+  </g>
+</svg>

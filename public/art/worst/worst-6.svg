@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 750" width="1100" height="750">
+  <!-- Outer Dark/Wood Background -->
+  <rect width="100%" height="100%" fill="#231b2c"/>
+
+  <!-- Paper Card (Slightly Angled Look) -->
+  <g transform="translate(66, 45)">
+    <rect width="968" height="660" rx="8" fill="#f9f3e8" stroke="#d6ccb8" stroke-width="2"/>
+    
+    <!-- Grid pattern on paper -->
+    <defs>
+      <pattern id="grid_worst-6" width="20" height="20" patternUnits="userSpaceOnUse">
+        <path d="M 20 0 L 0 0 0 20" fill="none" stroke="rgba(0,0,0,0.05)" stroke-width="1"/>
+      </pattern>
+    </defs>
+    <rect width="968" height="660" rx="8" fill="url(#grid_worst-6)"/>
+
+    <!-- Doodle Content -->
+    
+      <circle cx="550" cy="337.5" r="286" fill="#fce38a" stroke="#333" stroke-width="4"/>
+      <circle cx="440" cy="300" r="12" fill="#333"/>
+      <circle cx="660" cy="315" r="18" fill="#333"/>
+      <path d="M 385 434.99999999999994 Q 550 540 715 390" fill="none" stroke="#e84a5f" stroke-width="6" stroke-linecap="round"/>
+      <text x="550" y="637.5" font-family="cursive" font-size="28" fill="#ff5722" text-anchor="middle">Masterpiece in progress</text>
+    
+
+    <!-- Washi Tape Accent on Top-Right -->
+    <rect x="715" y="-12" width="242" height="32" rx="2" fill="rgba(212,162,76,0.65)" transform="rotate(12 715 0)"/>
+    <!-- Washi Tape Accent on Bottom-Left -->
+    <rect x="-10" y="562.5" width="220" height="28" rx="2" fill="rgba(230,126,34,0.55)" transform="rotate(-8 0 562.5)"/>
+  </g>
+</svg>
