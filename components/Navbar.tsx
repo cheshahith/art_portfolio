@@ -33,7 +33,7 @@ export default function Navbar() {
         ease: [0.16, 1, 0.3, 1],
       }}
       aria-label="Main Navigation"
-      className="fixed bottom-4 sm:bottom-6 inset-x-0 z-40 flex justify-center items-center px-4 pointer-events-none pb-[env(safe-area-inset-bottom)]"
+      className="fixed bottom-8 sm:bottom-10 inset-x-0 z-40 flex justify-center items-center px-4 pointer-events-none pb-[env(safe-area-inset-bottom)]"
     >
       <div className="pointer-events-auto flex items-center gap-1 sm:gap-1.5 p-1.5 sm:p-2 rounded-full bg-[#AEC4D4] border border-[#790D16]/20 shadow-[0_12px_32px_-6px_rgba(0,0,0,0.35)] max-w-[95vw] sm:max-w-fit overflow-x-auto no-scrollbar backdrop-blur-md">
         {NAV_ITEMS.map((item) => {

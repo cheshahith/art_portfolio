@@ -16,10 +16,11 @@ export default function UglyPage() {
     <div className="flex-1 flex flex-col bg-[#F5EFE1] min-h-screen text-[#790D16]">
       <PageIntro text="UGLY" />
       <PageHeader
-        categoryName="Collection 03 &bull; Sketchbook Bloopers"
+        categoryName="♥ Collection 03 &bull; Sketchbook Bloopers"
         title="Ugly"
-        subtitle="Proof that I wasn't always good at this — a humorous exhibition of questionable perspectives, rogue fingers, and glorious creative chaos."
+        subtitle="Proof that im not good at this!"
         count={uglyArt.length}
+        suit="heart"
       />
       <Gallery items={uglyArt} variant="ugly" />
     </div>

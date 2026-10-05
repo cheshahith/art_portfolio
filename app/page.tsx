@@ -5,6 +5,7 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import { ChevronDown } from "lucide-react";
 import { useIntro } from "@/components/IntroProvider";
+import SuitDivider from "@/components/SuitDivider";
 
 // =======================================================================
 // 1. EDITABLE HOME CONSTANTS (Edit colors, greetings, and paths here)
@@ -274,30 +275,42 @@ export default function HomePage() {
             <h2
               style={{
                 color: "#B6C3D2",
-                fontFamily: "var(--font-rozha), serif",
-                fontWeight: 400,
+                fontFamily: "var(--font-josefin), sans-serif",
+                fontWeight: 300,
                 fontStyle: "normal",
                 textTransform: "uppercase",
-                letterSpacing: "0.01em",
-                lineHeight: 1.05,
+                letterSpacing: "0.12em",
+                lineHeight: 1.15,
               }}
-              className="text-[36px] sm:text-[clamp(40px,5.5vw,64px)] mb-8"
+              className="text-[22px] sm:text-[26px] md:text-[30px] mb-2.5"
             >
               Behind the Canvas
             </h2>
 
-            <div className="space-y-8 text-[#F5EFE1]">
+            {/* Suit Divider with ♠ Spade Ornament */}
+            <div className="flex justify-start mb-7">
+              <SuitDivider
+                suit="spade"
+                color="#AEC4D4"
+                lineWidth="52px"
+                symbolSize="15px"
+                className="mt-0.5 mb-1"
+              />
+            </div>
+
+            <div className="space-y-7 text-[#F5EFE1]">
               <div>
                 <strong
                   style={{
                     color: "#B6C3D2",
-                    fontFamily: "var(--font-rozha), serif",
+                    fontFamily: "var(--font-josefin), sans-serif",
                     fontWeight: 400,
                     fontStyle: "normal",
                     textTransform: "uppercase",
+                    letterSpacing: "0.06em",
                     lineHeight: 1.2,
                   }}
-                  className="text-[22px] sm:text-[28px] block mb-2"
+                  className="text-[17px] sm:text-[20px] block mb-1.5"
                 >
                   Why I Make Art
                 </strong>
@@ -305,7 +318,7 @@ export default function HomePage() {
                   style={{
                     fontFamily: "var(--font-instrument), Georgia, serif",
                   }}
-                  className="text-xl sm:text-2xl text-[#F5EFE1]/90 leading-relaxed font-normal"
+                  className="text-lg sm:text-xl text-[#F5EFE1]/90 leading-relaxed font-normal"
                 >
                   I make art because it&apos;s the only time my head goes quiet. Most of my days are loud, fast and half-finished. A brush and some paint slow all of that down, and for a few hours I&apos;m just here, doing one thing, feeling peaceful.
                 </p>
@@ -315,13 +328,14 @@ export default function HomePage() {
                 <strong
                   style={{
                     color: "#B6C3D2",
-                    fontFamily: "var(--font-rozha), serif",
+                    fontFamily: "var(--font-josefin), sans-serif",
                     fontWeight: 400,
                     fontStyle: "normal",
                     textTransform: "uppercase",
+                    letterSpacing: "0.06em",
                     lineHeight: 1.2,
                   }}
-                  className="text-[22px] sm:text-[28px] block mb-2"
+                  className="text-[17px] sm:text-[20px] block mb-1.5"
                 >
                   What My Work Is About
                 </strong>
@@ -329,7 +343,7 @@ export default function HomePage() {
                   style={{
                     fontFamily: "var(--font-instrument), Georgia, serif",
                   }}
-                  className="text-xl sm:text-2xl text-[#F5EFE1]/90 leading-relaxed font-normal mb-4"
+                  className="text-lg sm:text-xl text-[#F5EFE1]/90 leading-relaxed font-normal mb-3"
                 >
                   My work is about the rush before the calm. It&apos;s the fun, the excitement, and the restless &ldquo;when will this finally end?&rdquo; that builds up in me until I have to put it somewhere. Some of it ends up on the canvas looking beautiful. Some of it ends up looking like a disaster.
                 </p>
@@ -337,12 +351,13 @@ export default function HomePage() {
                 <blockquote
                   style={{
                     color: "#B6C3D2",
-                    fontFamily: "var(--font-rozha), serif",
-                    fontWeight: 400,
+                    fontFamily: "var(--font-josefin), sans-serif",
+                    fontWeight: 300,
                     fontStyle: "normal",
                     textTransform: "uppercase",
-                    fontSize: "clamp(26px, 3.5vw, 36px)",
-                    lineHeight: 1.25,
+                    letterSpacing: "0.05em",
+                    fontSize: "clamp(18px, 2.2vw, 22px)",
+                    lineHeight: 1.3,
                   }}
                   className="mt-4 block"
                 >

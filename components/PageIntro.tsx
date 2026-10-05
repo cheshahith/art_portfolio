@@ -1,17 +1,14 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import dynamic from "next/dynamic";
 import { motion, AnimatePresence } from "framer-motion";
-
-const Dither = dynamic(() => import("./Dither"), { ssr: false });
 
 interface PageIntroProps {
   text: string;
   variant?: "plain" | "linen" | "dither";
 }
 
-export default function PageIntro({ text, variant = "plain" }: PageIntroProps) {
+export default function PageIntro({ text }: PageIntroProps) {
   const [phase, setPhase] = useState<"enter" | "hold" | "exit" | "done">("enter");
   const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
 
@@ -56,11 +53,6 @@ export default function PageIntro({ text, variant = "plain" }: PageIntroProps) {
     return null;
   }
 
-  const bgClasses =
-    variant === "linen"
-      ? "intro-linen"
-      : "bg-[#6B1A1E]";
-
   return (
     <AnimatePresence>
       <motion.div
@@ -68,24 +60,8 @@ export default function PageIntro({ text, variant = "plain" }: PageIntroProps) {
         initial={{ opacity: 1 }}
         animate={{ opacity: phase === "exit" ? 0 : 1 }}
         transition={{ duration: 1.2, ease: "easeInOut" }}
-        className={`fixed inset-0 z-50 flex items-center justify-center text-[#F5EFE1] pointer-events-auto select-none overflow-hidden ${bgClasses}`}
+        className="fixed inset-0 z-50 flex items-center justify-center text-[#F5EFE1] pointer-events-auto select-none overflow-hidden bg-[#6C1A1A]"
       >
-        {/* Animated Dither Background (Line Art page only) */}
-        {variant === "dither" && (
-          <div style={{ position: "absolute", inset: 0 }}>
-            <Dither
-              waveColor={[0.714, 0.765, 0.824]}
-              backgroundColor={[0.42, 0.102, 0.118]}
-              disableAnimation={false}
-              enableMouseInteraction
-              mouseRadius={0.3}
-              colorNum={4}
-              waveAmplitude={0.3}
-              waveFrequency={3}
-            />
-          </div>
-        )}
-
         <motion.h1
           initial={{ opacity: 0 }}
           animate={{
@@ -95,10 +71,7 @@ export default function PageIntro({ text, variant = "plain" }: PageIntroProps) {
           transition={{ duration: 1.2, ease: "easeInOut" }}
           style={{
             fontFamily: "var(--font-playfair), Georgia, serif",
-            textShadow:
-              variant === "linen"
-                ? "0 2px 12px rgba(0,0,0,0.35)"
-                : "0 2px 16px rgba(0,0,0,0.5)",
+            textShadow: "0 2px 16px rgba(0,0,0,0.5)",
           }}
           className="relative z-10 italic text-[22px] sm:text-[32px] tracking-[0.05em] uppercase text-center px-6 leading-relaxed font-normal text-[#F5EFE1]"
         >

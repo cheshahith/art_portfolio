@@ -8,18 +8,20 @@ import { oilPaintings } from "@/data/artworks";
 export const metadata: Metadata = {
   title: "Oil Paintings | Art Portfolio",
   description:
-    "Explore original oil paintings featuring glazed amber minerals, indigo impasto, and deep textures on canvas.",
+    "Explore original oil paintings featuring rich portraiture, still life studies, and deep textures on canvas.",
 };
 
 export default function OilPaintingsPage() {
   return (
-    <div className="flex-1 flex flex-col bg-[#F5EFE1] min-h-screen text-[#790D16]">
-      <PageIntro text="OIL ON CANVAS" variant="linen" />
+    <div className="flex-1 flex flex-col bg-[#6C1A1A] min-h-screen text-[#F5EFE1]">
+      <PageIntro text="OIL ON CANVAS" />
       <PageHeader
-        categoryName="Collection 01"
+        categoryName="♦ Collection 01"
         title="Oil Paintings"
-        subtitle="Exploring the depths of maritime indigo, translucent amber glazes, and heavy impasto textures layered with mineral pigments."
+        fontVariant="cinzel"
         count={oilPaintings.length}
+        theme="dark"
+        suit="diamond"
       />
       <Gallery items={oilPaintings} variant="oil" />
     </div>

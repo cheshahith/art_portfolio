@@ -12,6 +12,8 @@
   --color-blue-light: #C8D8E5;
   --color-blue-dark: #8EADC3;
 
+  --font-cinzel: var(--font-cinzel), serif;
+  --font-josefin: var(--font-josefin), sans-serif;
   --font-rozha: var(--font-rozha), serif;
   --font-lobster-two: var(--font-lobster-two), cursive;
   --font-instrument: var(--font-instrument), var(--font-playfair), Georgia, serif;
@@ -31,6 +33,7 @@
   --cream: #F5EFE1;
   --sand: #E5D3AF;
   --blue: #AEC4D4;
+  --font-cinzel: var(--font-cinzel), serif;
   --font-tagline: var(--font-tagline), Georgia, 'Times New Roman', serif;
   --font-jscharnchai: var(--font-jscharnchai, Georgia, serif);
 }

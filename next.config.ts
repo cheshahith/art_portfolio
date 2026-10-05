@@ -7,6 +7,9 @@ const nextConfig: NextConfig = {
     contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
     qualities: [75, 80],
   },
+  experimental: {
+    cpus: 1,
+  },
   async redirects() {
     return [
       {

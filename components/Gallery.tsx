@@ -34,7 +34,7 @@ export default function Gallery({ items, variant = "oil" }: GalleryProps) {
     <>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-32">
         {/* Responsive CSS Column Masonry */}
-        <div className="columns-1 sm:columns-2 lg:columns-3 gap-6 space-y-6 [column-fill:_balance]">
+        <div className="columns-1 sm:columns-2 lg:columns-3 gap-8 space-y-8 [column-fill:_balance]">
           {items.map((artwork, index) => {
             const isFirstRow = index < 3;
 
@@ -53,56 +53,81 @@ export default function Gallery({ items, variant = "oil" }: GalleryProps) {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-40px" }}
                 transition={{ duration: 0.5, delay: (index % 3) * 0.08 }}
-                className="break-inside-avoid inline-block w-full mb-6"
+                className="break-inside-avoid inline-block w-full mb-8"
               >
-                {/* Variant 1: OIL PAINTINGS (Sand frame, thin burgundy hairline border) */}
-                {variant === "oil" && (
-                  <div
-                    onClick={() => setSelectedArtworkIndex(index)}
-                    className="group relative rounded-xl overflow-hidden bg-[#E5D3AF] border border-[#790D16]/20 hover:border-[#790D16]/60 shadow-sm hover:shadow-md transition-all duration-300 cursor-pointer"
-                  >
-                    <div className="relative overflow-hidden aspect-auto bg-[#E5D3AF]/40">
-                      <Image
-                        src={artwork.src}
-                        alt={artwork.alt}
-                        width={artwork.width}
-                        height={artwork.height}
-                        priority={isFirstRow}
-                        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                        className="w-full h-auto object-cover transform group-hover:scale-104 transition-transform duration-500 ease-out"
-                      />
+                {/* Variant 1: OIL PAINTINGS (Refined Museum Gold Framed Presentation) */}
+                {variant === "oil" && (() => {
+                  const isFrameA = index % 2 === 0;
+                  const frameSrc = isFrameA ? "/ornate-gold-a.png" : "/ornate-gold-b.png";
+                  const insets = isFrameA
+                    ? { top: "12%", bottom: "11.5%", left: "16.2%", right: "16.3%" }
+                    : { top: "12.1%", bottom: "11.5%", left: "17.2%", right: "17.2%" };
 
-                      {/* Hover Overlay with Burgundy background and Cream/Sand text */}
-                      <div className="absolute inset-0 bg-gradient-to-t from-[#790D16]/95 via-[#790D16]/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-5">
-                        <div className="flex items-center gap-1.5 text-[#E5D3AF] text-xs font-[var(--font-inter)] font-semibold uppercase tracking-wider mb-1">
-                          <Eye className="w-3.5 h-3.5" />
-                          <span>View Detail</span>
+                  return (
+                    <div
+                      onClick={() => setSelectedArtworkIndex(index)}
+                      className="group relative cursor-pointer select-none transition-all duration-500 hover:-translate-y-2 mb-8"
+                    >
+                      {/* Subtle Ambient Wall Shadow (Clean & Balanced) */}
+                      <div className="absolute inset-2 sm:inset-3 rounded-2xl bg-black/35 blur-xl opacity-60 group-hover:opacity-85 group-hover:blur-2xl transition-all duration-500 pointer-events-none" />
+
+                      {/* Frame Container with Refined Realistic Drop-Shadow */}
+                      <div className="relative w-full aspect-[650/950] transition-all duration-500 [filter:drop-shadow(0_8px_16px_rgba(0,0,0,0.45))_drop-shadow(0_18px_32px_rgba(0,0,0,0.35))] group-hover:[filter:drop-shadow(0_12px_24px_rgba(0,0,0,0.55))_drop-shadow(0_24px_42px_rgba(0,0,0,0.45))]">
+                        
+                        {/* Artwork Canvas mounted inside frame */}
+                        <div
+                          className="absolute overflow-hidden bg-[#1A0507]"
+                          style={{
+                            top: insets.top,
+                            bottom: insets.bottom,
+                            left: insets.left,
+                            right: insets.right,
+                          }}
+                        >
+                          <Image
+                            src={artwork.src}
+                            alt={artwork.alt}
+                            fill
+                            priority={isFirstRow}
+                            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                            className="object-cover transform group-hover:scale-105 transition-transform duration-700 ease-out"
+                          />
+
+                          {/* Subtle inner canvas shadow */}
+                          <div className="absolute inset-0 shadow-[inset_0_2px_12px_rgba(0,0,0,0.7)] pointer-events-none" />
+
+                          {/* Hover Detail Overlay */}
+                          <div className="absolute inset-0 bg-gradient-to-t from-[#260508]/95 via-[#260508]/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-4 text-[#F5EFE1]">
+                            <div className="flex items-center gap-1.5 text-[#E5D3AF] text-xs font-[var(--font-inter)] font-semibold uppercase tracking-wider mb-1">
+                              <Eye className="w-3.5 h-3.5" />
+                              <span>View Detail</span>
+                            </div>
+                            <h3 className="font-[var(--font-playfair)] italic text-lg sm:text-xl text-[#F5EFE1] font-normal leading-snug">
+                              {artwork.title}
+                            </h3>
+                          </div>
                         </div>
-                        <h3 className="font-[var(--font-playfair)] italic text-xl sm:text-2xl text-[#F5EFE1] font-normal leading-snug">
+
+                        {/* Ornate Gold Frame PNG overlay */}
+                        <img
+                          src={frameSrc}
+                          alt="Ornate Gold Frame"
+                          className="absolute inset-0 w-full h-full object-fill pointer-events-none z-10 select-none filter contrast-105"
+                        />
+                      </div>
+
+                      {/* Museum Brass Plaque / Caption */}
+                      <div className="mt-4 px-3 py-2 text-center rounded-xl bg-[#521313]/50 backdrop-blur-sm border border-[#E5D3AF]/15 shadow-[0_4px_12px_rgba(0,0,0,0.3)] transition-all duration-300 group-hover:border-[#E5D3AF]/35 group-hover:bg-[#521313]/70">
+                        <h4 className="font-[var(--font-playfair)] italic text-lg sm:text-xl text-[#F5EFE1] font-normal tracking-wide group-hover:text-[#E5D3AF] transition-colors">
                           {artwork.title}
-                        </h3>
-                        <p className="font-[var(--font-inter)] text-xs text-[#F5EFE1]/80 mt-1">
+                        </h4>
+                        <p className="font-[var(--font-inter)] text-xs text-[#E5D3AF]/85 mt-1 tracking-wider uppercase font-light">
                           {artwork.medium} &bull; {artwork.year}
                         </p>
                       </div>
                     </div>
-
-                    {/* Bottom Metadata Bar */}
-                    <div className="p-4 border-t border-[#790D16]/15 flex items-center justify-between text-[#790D16]">
-                      <div>
-                        <h4 className="font-[var(--font-playfair)] italic text-lg text-[#790D16] font-normal truncate">
-                          {artwork.title}
-                        </h4>
-                        <p className="font-[var(--font-inter)] text-xs text-[#790D16]/75 truncate mt-0.5">
-                          {artwork.medium}
-                        </p>
-                      </div>
-                      <span className="font-[var(--font-inter)] text-xs text-[#790D16]/90 font-medium shrink-0 ml-3">
-                        {artwork.year}
-                      </span>
-                    </div>
-                  </div>
-                )}
+                  );
+                })()}
 
                 {/* Variant 2: LINE ART (Cream paper panels with thin burgundy ink borders) */}
                 {variant === "line" && (

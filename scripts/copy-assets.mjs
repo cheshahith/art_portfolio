@@ -7,6 +7,9 @@ if (!fs.existsSync('public/art/ugly')) {
 if (!fs.existsSync('public/art/oil')) {
   fs.mkdirSync('public/art/oil', { recursive: true });
 }
+if (!fs.existsSync('public/lineart_images')) {
+  fs.mkdirSync('public/lineart_images', { recursive: true });
+}
 
 // Copy oil paintings
 const oilFiles = [
@@ -19,9 +22,11 @@ const oilFiles = [
 
 oilFiles.forEach((f, idx) => {
   const src = path.join('oilpaintings', f);
-  const dest = path.join('public/art/oil', `oil-${idx + 1}.jpeg`);
-  fs.copyFileSync(src, dest);
-  console.log(`Copied ${src} -> ${dest}`);
+  if (fs.existsSync(src)) {
+    const dest = path.join('public/art/oil', `oil-${idx + 1}.jpeg`);
+    fs.copyFileSync(src, dest);
+    console.log(`Copied ${src} -> ${dest}`);
+  }
 });
 
 // Copy ugly
@@ -34,11 +39,24 @@ const uglyFiles = [
 
 uglyFiles.forEach((f, idx) => {
   const src = path.join('ugly', f);
-  const destUgly = path.join('public/art/ugly', `ugly-${idx + 1}.jpeg`);
-  fs.copyFileSync(src, destUgly);
-  if (fs.existsSync('public/art/worst')) {
-    const destWorst = path.join('public/art/worst', `worst-${idx + 1}.jpeg`);
-    fs.copyFileSync(src, destWorst);
+  if (fs.existsSync(src)) {
+    const destUgly = path.join('public/art/ugly', `ugly-${idx + 1}.jpeg`);
+    fs.copyFileSync(src, destUgly);
+    if (fs.existsSync('public/art/worst')) {
+      const destWorst = path.join('public/art/worst', `worst-${idx + 1}.jpeg`);
+      fs.copyFileSync(src, destWorst);
+    }
+    console.log(`Copied ${src} -> ${destUgly}`);
   }
-  console.log(`Copied ${src} -> ${destUgly}`);
 });
+
+// Copy line art images
+if (fs.existsSync('lineart_images')) {
+  const lineartFiles = fs.readdirSync('lineart_images');
+  lineartFiles.forEach((f) => {
+    const src = path.join('lineart_images', f);
+    const dest = path.join('public/lineart_images', f);
+    fs.copyFileSync(src, dest);
+    console.log(`Copied ${src} -> ${dest}`);
+  });
+}
