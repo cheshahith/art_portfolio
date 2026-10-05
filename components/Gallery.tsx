@@ -5,7 +5,7 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import { Artwork } from "@/data/artworks";
 import Lightbox from "./Lightbox";
-import { Eye, AlertCircle, Sparkles } from "lucide-react";
+import { Eye, AlertCircle, Sparkles, ZoomIn } from "lucide-react";
 
 interface GalleryProps {
   items: Artwork[];
@@ -18,7 +18,7 @@ export default function Gallery({ items, variant = "oil" }: GalleryProps) {
   // Empty State
   if (!items || items.length === 0) {
     return (
-      <div className="flex flex-col items-center justify-center p-12 text-center max-w-md mx-auto my-12 rounded-2xl bg-[#E5D3AF] border border-[#790D16]/20">
+      <div className="flex flex-col items-center justify-center p-8 sm:p-12 text-center max-w-md mx-auto my-12 rounded-2xl bg-[#E5D3AF] border border-[#790D16]/20">
         <Sparkles className="w-8 h-8 text-[#790D16] mb-3 opacity-80" />
         <h3 className="font-[var(--font-playfair)] italic text-2xl text-[#790D16] font-normal mb-2">
           Curating the Collection
@@ -32,9 +32,9 @@ export default function Gallery({ items, variant = "oil" }: GalleryProps) {
 
   return (
     <>
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-32">
+      <div className="max-w-7xl mx-auto px-3.5 sm:px-6 lg:px-8 pb-36">
         {/* Responsive CSS Column Masonry */}
-        <div className="columns-1 sm:columns-2 lg:columns-3 gap-8 space-y-8 [column-fill:_balance]">
+        <div className="columns-1 sm:columns-2 lg:columns-3 gap-6 sm:gap-8 space-y-6 sm:space-y-8 [column-fill:_balance]">
           {items.map((artwork, index) => {
             const isFirstRow = index < 3;
 
@@ -49,11 +49,11 @@ export default function Gallery({ items, variant = "oil" }: GalleryProps) {
             return (
               <motion.div
                 key={artwork.id}
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 24 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-40px" }}
+                viewport={{ once: true, margin: "-20px" }}
                 transition={{ duration: 0.5, delay: (index % 3) * 0.08 }}
-                className="break-inside-avoid inline-block w-full mb-8"
+                className="break-inside-avoid inline-block w-full mb-6 sm:mb-8"
               >
                 {/* Variant 1: OIL PAINTINGS (Refined Museum Gold Framed Presentation) */}
                 {variant === "oil" && (() => {
@@ -66,13 +66,13 @@ export default function Gallery({ items, variant = "oil" }: GalleryProps) {
                   return (
                     <div
                       onClick={() => setSelectedArtworkIndex(index)}
-                      className="group relative cursor-pointer select-none transition-all duration-500 hover:-translate-y-2 mb-8"
+                      className="group relative cursor-pointer select-none transition-all duration-300 active:scale-[0.98] hover:-translate-y-2 mb-4"
                     >
-                      {/* Subtle Ambient Wall Shadow (Clean & Balanced) */}
-                      <div className="absolute inset-2 sm:inset-3 rounded-2xl bg-black/35 blur-xl opacity-60 group-hover:opacity-85 group-hover:blur-2xl transition-all duration-500 pointer-events-none" />
+                      {/* Ambient Wall Glow */}
+                      <div className="absolute inset-2 sm:inset-3 rounded-2xl bg-black/40 blur-xl opacity-70 group-hover:opacity-90 group-hover:blur-2xl transition-all duration-500 pointer-events-none" />
 
-                      {/* Frame Container with Refined Realistic Drop-Shadow */}
-                      <div className="relative w-full aspect-[650/950] transition-all duration-500 [filter:drop-shadow(0_8px_16px_rgba(0,0,0,0.45))_drop-shadow(0_18px_32px_rgba(0,0,0,0.35))] group-hover:[filter:drop-shadow(0_12px_24px_rgba(0,0,0,0.55))_drop-shadow(0_24px_42px_rgba(0,0,0,0.45))]">
+                      {/* Frame Container with Deep Drop-Shadow */}
+                      <div className="relative w-full aspect-[650/950] transition-all duration-500 [filter:drop-shadow(0_10px_20px_rgba(0,0,0,0.55))_drop-shadow(0_20px_36px_rgba(0,0,0,0.45))]">
                         
                         {/* Artwork Canvas mounted inside frame */}
                         <div
@@ -94,10 +94,10 @@ export default function Gallery({ items, variant = "oil" }: GalleryProps) {
                           />
 
                           {/* Subtle inner canvas shadow */}
-                          <div className="absolute inset-0 shadow-[inset_0_2px_12px_rgba(0,0,0,0.7)] pointer-events-none" />
+                          <div className="absolute inset-0 shadow-[inset_0_2px_12px_rgba(0,0,0,0.75)] pointer-events-none" />
 
-                          {/* Hover Detail Overlay */}
-                          <div className="absolute inset-0 bg-gradient-to-t from-[#260508]/95 via-[#260508]/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-4 text-[#F5EFE1]">
+                          {/* Desktop Hover Overlay */}
+                          <div className="absolute inset-0 bg-gradient-to-t from-[#260508]/95 via-[#260508]/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 hidden sm:flex flex-col justify-end p-4 text-[#F5EFE1]">
                             <div className="flex items-center gap-1.5 text-[#E5D3AF] text-xs font-[var(--font-inter)] font-semibold uppercase tracking-wider mb-1">
                               <Eye className="w-3.5 h-3.5" />
                               <span>View Detail</span>
@@ -117,11 +117,15 @@ export default function Gallery({ items, variant = "oil" }: GalleryProps) {
                       </div>
 
                       {/* Museum Brass Plaque / Caption */}
-                      <div className="mt-4 px-3 py-2 text-center rounded-xl bg-[#521313]/50 backdrop-blur-sm border border-[#E5D3AF]/15 shadow-[0_4px_12px_rgba(0,0,0,0.3)] transition-all duration-300 group-hover:border-[#E5D3AF]/35 group-hover:bg-[#521313]/70">
-                        <h4 className="font-[var(--font-playfair)] italic text-lg sm:text-xl text-[#F5EFE1] font-normal tracking-wide group-hover:text-[#E5D3AF] transition-colors">
-                          {artwork.title}
-                        </h4>
-                        <p className="font-[var(--font-inter)] text-xs text-[#E5D3AF]/85 mt-1 tracking-wider uppercase font-light">
+                      <div className="mt-3 sm:mt-4 px-3.5 py-2.5 text-center rounded-xl bg-[#4A0E12]/80 backdrop-blur-md border border-[#E5D3AF]/20 shadow-[0_6px_16px_rgba(0,0,0,0.35)] transition-all duration-300 group-hover:border-[#E5D3AF]/40 group-hover:bg-[#521313]/90">
+                        <div className="flex items-center justify-center gap-1.5">
+                          <h4 className="font-[var(--font-playfair)] italic text-base sm:text-xl text-[#F5EFE1] font-normal tracking-wide group-hover:text-[#E5D3AF] transition-colors">
+                            {artwork.title}
+                          </h4>
+                          {/* Mobile Tap Cue */}
+                          <ZoomIn className="w-3.5 h-3.5 text-[#E5D3AF]/70 sm:hidden shrink-0" />
+                        </div>
+                        <p className="font-[var(--font-inter)] text-[11px] sm:text-xs text-[#E5D3AF]/85 mt-1 tracking-wider uppercase font-light">
                           {artwork.medium} &bull; {artwork.year}
                         </p>
                       </div>
@@ -129,7 +133,7 @@ export default function Gallery({ items, variant = "oil" }: GalleryProps) {
                   );
                 })()}
 
-                {/* Variant 2: LINE ART (Cream paper panels with thin burgundy ink borders) */}
+                {/* Variant 2: LINE ART (Cream paper panels) */}
                 {variant === "line" && (
                   <div
                     onClick={() => setSelectedArtworkIndex(index)}
@@ -145,41 +149,36 @@ export default function Gallery({ items, variant = "oil" }: GalleryProps) {
                         sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                         className="w-full h-auto object-contain transform group-hover:scale-102 transition-transform duration-500 ease-out"
                       />
-
-                      {/* Ink Vignette on Hover */}
-                      <div className="absolute inset-0 bg-gradient-to-t from-[#790D16]/90 via-[#790D16]/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-4 text-[#F5EFE1]">
-                        <span className="text-xs uppercase tracking-widest text-[#E5D3AF] font-semibold">
-                          Minimalist Ink
-                        </span>
-                        <h3 className="font-[var(--font-playfair)] italic text-xl font-normal">
-                          {artwork.title}
-                        </h3>
-                      </div>
                     </div>
 
-                    {/* Paper caption label */}
                     <div className="mt-3 pt-2 border-t border-[#790D16]/15 flex items-center justify-between text-xs text-[#790D16]">
                       <div>
-                        <span className="font-[var(--font-playfair)] italic text-base font-normal text-[#790D16] block">
+                        <span className="font-[var(--font-playfair)] italic text-sm sm:text-base font-normal text-[#790D16] block">
                           {artwork.title}
                         </span>
-                        <span className="font-[var(--font-inter)] text-[#790D16]/70">{artwork.medium}</span>
+                        <span className="font-[var(--font-inter)] text-[11px] text-[#790D16]/70">{artwork.medium}</span>
                       </div>
-                      <span className="font-mono text-[#790D16]/80 font-semibold shrink-0 ml-2">
+                      <span className="font-mono text-[11px] text-[#790D16]/80 font-semibold shrink-0 ml-2">
                         {artwork.year}
                       </span>
                     </div>
                   </div>
                 )}
 
-                {/* Variant 3: UGLY ART (Sand cards with slight tilt, Caveat captions in burgundy) */}
+                {/* Variant 3: UGLY ART (Tactile Polaroid-Style Sketchbook Cards) */}
                 {(variant === "worst" || variant === "ugly") && (
                   <div
                     onClick={() => setSelectedArtworkIndex(index)}
-                    className={`group relative rounded-xl p-4 sm:p-5 bg-[#E5D3AF] border border-[#790D16]/25 hover:border-[#790D16]/70 shadow-sm hover:shadow-lg ${tiltRotation} hover:rotate-0 transition-all duration-300 cursor-pointer overflow-visible`}
+                    className={`group relative rounded-2xl p-4 sm:p-5 bg-[#E5D3AF] border border-[#790D16]/25 shadow-md hover:shadow-xl ${tiltRotation} transition-all duration-300 active:scale-[0.98] cursor-pointer overflow-visible`}
                   >
-                    {/* Image */}
-                    <div className="relative overflow-hidden rounded-lg bg-[#F5EFE1] border border-[#790D16]/15">
+                    {/* Washi Tape Graphic */}
+                    <div
+                      aria-hidden="true"
+                      className="absolute -top-2.5 left-1/2 -translate-x-1/2 w-20 h-5 bg-[#C9B595]/90 border-b border-[#A69376] shadow-sm transform -rotate-1 rounded-sm pointer-events-none opacity-85 z-10"
+                    />
+
+                    {/* Image Canvas Container */}
+                    <div className="relative overflow-hidden rounded-xl bg-[#F5EFE1] border-2 border-[#790D16]/20 shadow-inner p-1.5 mt-1">
                       <Image
                         src={artwork.src}
                         alt={artwork.alt}
@@ -187,24 +186,24 @@ export default function Gallery({ items, variant = "oil" }: GalleryProps) {
                         height={artwork.height}
                         priority={isFirstRow}
                         sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                        className="w-full h-auto object-cover transform group-hover:scale-104 transition-transform duration-300"
+                        className="w-full h-auto object-cover rounded-lg transform group-hover:scale-102 transition-transform duration-300"
                       />
                     </div>
 
-                    {/* Playful Handwritten Caption (Caveat font in Burgundy) */}
-                    <div className="mt-4 pt-2">
+                    {/* Handwritten Caption & Notes */}
+                    <div className="mt-3.5 pt-1">
                       <div className="flex items-start justify-between gap-2">
                         <h3 className="font-[var(--font-caveat)] text-2xl sm:text-3xl text-[#790D16] font-bold leading-tight">
                           {artwork.title}
                         </h3>
-                        <span className="font-[var(--font-caveat)] text-lg text-[#790D16]/70 shrink-0">
+                        <span className="font-[var(--font-caveat)] text-lg text-[#790D16]/75 shrink-0">
                           ({artwork.year})
                         </span>
                       </div>
 
                       {/* What Went Wrong Callout */}
                       {artwork.note && (
-                        <div className="mt-2.5 p-3 rounded-lg bg-[#F5EFE1] border border-[#790D16]/20 text-xs">
+                        <div className="mt-2.5 p-3 rounded-xl bg-[#F5EFE1] border border-[#790D16]/20 shadow-sm text-xs">
                           <div className="flex items-center gap-1.5 text-[#790D16] font-semibold uppercase tracking-wider mb-1">
                             <AlertCircle className="w-3.5 h-3.5 text-[#790D16]" />
                             <span>What went wrong:</span>

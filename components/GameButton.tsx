@@ -19,15 +19,15 @@ export default function GameButton() {
         initial={{ opacity: 0, scale: 0.7 }}
         animate={shouldShow ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.7 }}
         transition={{ delay: 0.3, duration: 0.5 }}
-        className="fixed top-5 right-5 z-40"
+        className="fixed top-4 right-4 sm:top-5 sm:right-5 z-40"
       >
         <button
           onClick={() => setIsModalOpen(true)}
-          aria-label="Open interactive workshop"
-          className="relative group p-2.5 sm:p-3 rounded-full bg-[#6C1A1A]/70 hover:bg-[#6C1A1A] border border-[#AEC4D4] text-[#AEC4D4] backdrop-blur-md transition-all duration-300 shadow-md cursor-pointer focus-visible:ring-2 focus-visible:ring-[#AEC4D4]"
+          aria-label="Open interactive drawing note"
+          className="relative group p-2.5 sm:p-3 min-w-[44px] min-h-[44px] flex items-center justify-center rounded-full bg-[#521313]/85 hover:bg-[#6C1A1A] border border-[#AEC4D4]/50 text-[#AEC4D4] backdrop-blur-xl transition-all duration-300 shadow-lg active:scale-95 cursor-pointer focus-visible:ring-2 focus-visible:ring-[#AEC4D4]"
         >
           {/* Soft pulse animation */}
-          <span className="absolute inset-0 rounded-full border border-[#AEC4D4]/40 animate-ping opacity-60 pointer-events-none" />
+          <span className="absolute inset-0 rounded-full border border-[#AEC4D4]/40 animate-ping opacity-50 pointer-events-none" />
 
           <Gamepad2 className="w-4 h-4 sm:w-5 sm:h-5 text-[#AEC4D4] group-hover:rotate-12 transition-transform duration-300 relative z-10" />
         </button>

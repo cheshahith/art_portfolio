@@ -33,9 +33,9 @@ export default function Navbar() {
         ease: [0.16, 1, 0.3, 1],
       }}
       aria-label="Main Navigation"
-      className="fixed bottom-8 sm:bottom-10 inset-x-0 z-40 flex justify-center items-center px-4 pointer-events-none pb-[env(safe-area-inset-bottom)]"
+      className="fixed bottom-6 sm:bottom-10 inset-x-0 z-40 flex justify-center items-center px-3 sm:px-4 pointer-events-none pb-[env(safe-area-inset-bottom)]"
     >
-      <div className="pointer-events-auto flex items-center gap-1 sm:gap-1.5 p-1.5 sm:p-2 rounded-full bg-[#AEC4D4] border border-[#790D16]/20 shadow-[0_12px_32px_-6px_rgba(0,0,0,0.35)] max-w-[95vw] sm:max-w-fit overflow-x-auto no-scrollbar backdrop-blur-md">
+      <div className="pointer-events-auto flex items-center gap-0.5 sm:gap-1.5 p-1 sm:p-2 rounded-full bg-[#AEC4D4]/95 border border-[#790D16]/25 shadow-[0_12px_36px_-4px_rgba(0,0,0,0.45)] max-w-full overflow-x-auto no-scrollbar backdrop-blur-xl">
         {NAV_ITEMS.map((item) => {
           const isActive = pathname === item.href;
 
@@ -43,20 +43,20 @@ export default function Navbar() {
             <Link
               key={item.href}
               href={item.href}
-              className={`relative px-3.5 sm:px-4 py-1.5 sm:py-2 rounded-full text-xs sm:text-sm font-[var(--font-inter)] tracking-wide transition-colors duration-200 whitespace-nowrap outline-none focus-visible:ring-2 focus-visible:ring-[#790D16] ${
+              className={`relative px-2.5 sm:px-4 py-1.5 sm:py-2 rounded-full text-[11px] sm:text-sm font-[var(--font-inter)] tracking-wide transition-all duration-200 whitespace-nowrap outline-none focus-visible:ring-2 focus-visible:ring-[#790D16] active:scale-95 ${
                 isActive
-                  ? "text-[#F5EFE1] font-medium"
-                  : "text-[#790D16] hover:text-[#570910] font-normal"
+                  ? "text-[#F5EFE1] font-semibold"
+                  : "text-[#790D16] hover:text-[#570910] font-medium"
               }`}
             >
               {isActive && (
                 <motion.div
                   layoutId="activeNavTab"
-                  className="absolute inset-0 bg-[#790D16] rounded-full shadow-sm"
+                  className="absolute inset-0 bg-[#790D16] rounded-full shadow-md"
                   transition={{
                     type: "spring",
-                    stiffness: 400,
-                    damping: 32,
+                    stiffness: 450,
+                    damping: 35,
                   }}
                 />
               )}
