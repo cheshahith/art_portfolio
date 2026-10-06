@@ -13,7 +13,7 @@ export const metadata: Metadata = {
 
 export default function UglyPage() {
   return (
-    <div className="flex-1 flex flex-col bg-[#F5EFE1] min-h-screen text-[#790D16]">
+    <div className="flex-1 flex flex-col bg-[#F5EFE1] min-h-screen text-[#790D16] overflow-x-hidden">
       <PageIntro text="UGLY" />
       <PageHeader
         categoryName="♥ Collection 03 &bull; Sketchbook Bloopers"

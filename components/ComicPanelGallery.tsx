@@ -23,46 +23,6 @@ interface ComicPanelGalleryProps {
   images: LineArtImageItem[];
 }
 
-// 12-Column Repeating Comic Layout Spans for Desktop
-const COMIC_LAYOUT_PATTERNS = [
-  {
-    desktopCol: "lg:col-span-8",
-    tabletCol: "md:col-span-2",
-    minHeight: "min-h-[320px] sm:min-h-[480px] lg:min-h-[520px]",
-    badge: "Wide Feature",
-  },
-  {
-    desktopCol: "lg:col-span-4",
-    tabletCol: "md:col-span-1",
-    minHeight: "min-h-[320px] sm:min-h-[480px] lg:min-h-[520px]",
-    badge: "Tall Accent",
-  },
-  {
-    desktopCol: "lg:col-span-6",
-    tabletCol: "md:col-span-1",
-    minHeight: "min-h-[300px] sm:min-h-[440px]",
-    badge: "Medium Half",
-  },
-  {
-    desktopCol: "lg:col-span-6",
-    tabletCol: "md:col-span-1",
-    minHeight: "min-h-[300px] sm:min-h-[440px]",
-    badge: "Medium Half",
-  },
-  {
-    desktopCol: "lg:col-span-5",
-    tabletCol: "md:col-span-1",
-    minHeight: "min-h-[320px] sm:min-h-[480px]",
-    badge: "Portrait Focus",
-  },
-  {
-    desktopCol: "lg:col-span-7",
-    tabletCol: "md:col-span-1",
-    minHeight: "min-h-[320px] sm:min-h-[480px]",
-    badge: "Action Splash",
-  },
-];
-
 export default function ComicPanelGallery({ images }: ComicPanelGalleryProps) {
   const [selectedArtworkIndex, setSelectedArtworkIndex] = useState<number | null>(null);
   const shouldReduceMotion = useReducedMotion();
@@ -78,7 +38,6 @@ export default function ComicPanelGallery({ images }: ComicPanelGalleryProps) {
     width: img.width,
     height: img.height,
     aspectRatio: img.aspectRatio,
-    note: `Original ink drawing (${img.filename}). Rendered with archival pigment pen on textured paper.`,
   }));
 
   if (!images || images.length === 0) {
@@ -95,11 +54,11 @@ export default function ComicPanelGallery({ images }: ComicPanelGalleryProps) {
   }
 
   return (
-    <div className="w-full min-h-screen bg-[#6C1A1A] text-[#F5EFE1] flex flex-col selection:bg-[#AEC4D4] selection:text-[#6C1A1A]">
+    <div className="w-full min-h-screen bg-[#6C1A1A] text-[#F5EFE1] flex flex-col selection:bg-[#AEC4D4] selection:text-[#6C1A1A] overflow-x-hidden">
       {/* ===================================================================
           1. COMIC PAGE HEADER
           =================================================================== */}
-      <header className="pt-16 sm:pt-28 pb-8 sm:pb-14 px-4 text-center max-w-4xl mx-auto w-full">
+      <header className="pt-16 sm:pt-28 pb-8 sm:pb-12 px-4 text-center max-w-4xl mx-auto w-full">
         {/* Collection Badge with Rummy Card Symbol */}
         <motion.div
           initial={shouldReduceMotion ? false : { opacity: 0, y: -10 }}
@@ -144,19 +103,21 @@ export default function ComicPanelGallery({ images }: ComicPanelGalleryProps) {
       </header>
 
       {/* ===================================================================
-          2. COMIC PANEL GRID GALLERY
+          2. COMIC PANEL GRID GALLERY (Tight Spacing & Sideways Scroll Entrance)
           =================================================================== */}
-      <main className="max-w-7xl mx-auto px-3.5 sm:px-6 lg:px-8 w-full pb-36">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-4 sm:gap-5 w-full">
+      <main className="max-w-6xl mx-auto px-3.5 sm:px-6 lg:px-8 w-full pb-36">
+        <div className="columns-1 md:columns-2 gap-5 sm:gap-7 space-y-5 sm:space-y-7 [column-fill:_balance]">
           {images.map((item, index) => {
-            const pattern = COMIC_LAYOUT_PATTERNS[index % COMIC_LAYOUT_PATTERNS.length];
             const isPriority = index < 2;
             const isEven = index % 2 === 0;
 
-            // Rotation for hand-placed comic feel on tablet/desktop, subtle on mobile
-            const rotationClass = isEven
-              ? "-rotate-[0.3deg] sm:-rotate-[0.6deg]"
-              : "rotate-[0.3deg] sm:rotate-[0.6deg]";
+            // Sideways scroll entrance: alternating from left (-80px) and right (+80px)
+            const initialX = isEven ? -80 : 80;
+
+            // Subtle rotation for comic frame character
+            const tiltClass = isEven
+              ? "-rotate-[0.4deg] sm:-rotate-[0.8deg]"
+              : "rotate-[0.4deg] sm:rotate-[0.8deg]";
 
             return (
               <motion.div
@@ -166,8 +127,8 @@ export default function ComicPanelGallery({ images }: ComicPanelGalleryProps) {
                     ? false
                     : {
                         opacity: 0,
-                        y: 30,
-                        scale: 0.98,
+                        x: initialX,
+                        scale: 0.96,
                       }
                 }
                 whileInView={
@@ -175,58 +136,43 @@ export default function ComicPanelGallery({ images }: ComicPanelGalleryProps) {
                     ? {}
                     : {
                         opacity: 1,
-                        y: 0,
+                        x: 0,
                         scale: 1,
                       }
                 }
-                viewport={{ once: true, amount: 0.15 }}
+                viewport={{ once: true, amount: 0.15, margin: "-20px" }}
                 transition={{
-                  duration: 0.5,
-                  delay: shouldReduceMotion ? 0 : (index % 3) * 0.08,
-                  ease: [0.16, 1, 0.3, 1],
+                  duration: 0.65,
+                  delay: shouldReduceMotion ? 0 : (index % 2) * 0.08,
+                  ease: [0.22, 1, 0.36, 1], // Smooth cinematic bezier
                 }}
-                className={`col-span-1 ${pattern.tabletCol} ${pattern.desktopCol} ${rotationClass} group cursor-pointer transition-all duration-300 hover:scale-[1.01] active:scale-[0.98] hover:z-10`}
+                className={`break-inside-avoid inline-block w-full mb-5 sm:mb-7 ${tiltClass} group cursor-pointer transition-all duration-300 hover:scale-[1.015] active:scale-[0.98] hover:z-10`}
                 onClick={() => setSelectedArtworkIndex(index)}
               >
-                {/* Comic Panel Container */}
-                <div className="relative flex flex-col justify-between overflow-hidden bg-[#FBF7F0] border-[2.5px] sm:border-[3px] border-[#2A0A0A] rounded-[3px] shadow-[4px_4px_0_rgba(0,0,0,0.4)] sm:shadow-[6px_6px_0_rgba(0,0,0,0.45)] group-hover:shadow-[8px_8px_0_rgba(0,0,0,0.6)] transition-all duration-300 h-full">
+                {/* Comic Panel Container with snug white border */}
+                <div className="relative overflow-hidden bg-[#FBF7F0] border-[2.5px] sm:border-[3px] border-[#2A0A0A] rounded-[4px] p-2 sm:p-2.5 shadow-[5px_5px_0_rgba(0,0,0,0.45)] sm:shadow-[7px_7px_0_rgba(0,0,0,0.5)] group-hover:shadow-[9px_9px_0_rgba(0,0,0,0.65)] transition-all duration-300">
                   
-                  {/* Comic Corner Registration / Panel Number Badge */}
-                  <div className="absolute top-2 left-2 sm:top-2.5 sm:left-2.5 z-10 px-2 py-0.5 rounded-[2px] bg-[#2A0A0A] text-[#FBF7F0] font-[Georgia,'Times_New_Roman',serif] text-[10px] sm:text-xs font-bold tracking-wider select-none shadow-sm">
+                  {/* Corner Comic Registration Badge */}
+                  <div className="absolute top-2.5 left-2.5 z-10 px-2 py-0.5 rounded-[2px] bg-[#2A0A0A] text-[#FBF7F0] font-[Georgia,'Times_New_Roman',serif] text-[10px] sm:text-xs font-bold tracking-wider select-none shadow-sm opacity-90 group-hover:opacity-100">
                     #{String(index + 1).padStart(2, "0")}
                   </div>
 
-                  {/* Drawing Container */}
-                  <div
-                    className={`relative w-full ${pattern.minHeight} p-3.5 sm:p-7 flex items-center justify-center bg-[#FBF7F0] overflow-hidden`}
-                  >
-                    {/* Subtle Halftone Texture */}
-                    <div className="absolute inset-0 bg-radial from-transparent to-[#2A0A0A]/[0.03] pointer-events-none" />
-
-                    {/* Image with object-fit: contain */}
-                    <div className="relative w-full h-full min-h-[250px] sm:min-h-[340px] flex items-center justify-center">
-                      <Image
-                        src={item.src}
-                        alt={item.alt}
-                        fill
-                        priority={isPriority}
-                        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, (max-width: 1440px) 66vw, 50vw"
-                        className="object-contain p-1 transform group-hover:scale-[1.02] transition-transform duration-500 ease-out select-none"
-                      />
-                    </div>
+                  {/* Corner Hover Zoom Cue */}
+                  <div className="absolute top-2.5 right-2.5 z-10 p-1 rounded-full bg-[#2A0A0A]/80 text-[#FBF7F0] opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none">
+                    <ZoomIn className="w-3 h-3" />
                   </div>
 
-                  {/* Caption Strip */}
-                  <div className="border-t-[2px] border-[#2A0A0A]/20 bg-[#FBF7F0] px-3.5 py-2.5 flex items-center justify-between text-[#6C1A1A]">
-                    <span className="font-[Georgia,'Times_New_Roman',serif] italic text-xs sm:text-sm text-[#6C1A1A] font-medium tracking-wide truncate pr-2">
-                      {item.caption}
-                    </span>
-                    <div className="flex items-center gap-1.5 shrink-0 text-[#6C1A1A]/70">
-                      <span className="font-[Georgia,'Times_New_Roman',serif] text-[10px] sm:text-xs uppercase tracking-widest font-bold">
-                        Ink
-                      </span>
-                      <ZoomIn className="w-3 h-3 text-[#6C1A1A]/60 sm:hidden" />
-                    </div>
+                  {/* Artwork Canvas snugly fitted inside white panel */}
+                  <div className="relative w-full overflow-hidden rounded-[2px] bg-[#FBF7F0] flex items-center justify-center">
+                    <Image
+                      src={item.src}
+                      alt={item.alt}
+                      width={item.width}
+                      height={item.height}
+                      priority={isPriority}
+                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 50vw"
+                      className="w-full h-auto object-contain block transform group-hover:scale-[1.01] transition-transform duration-500 ease-out select-none"
+                    />
                   </div>
                 </div>
               </motion.div>

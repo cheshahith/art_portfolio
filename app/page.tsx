@@ -8,6 +8,44 @@ import { ChevronDown, ArrowRight, Sparkles } from "lucide-react";
 import { useIntro } from "@/components/IntroProvider";
 import SuitDivider from "@/components/SuitDivider";
 
+function InstagramIcon({ className = "w-4 h-4" }: { className?: string }) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      stroke="currentColor"
+      strokeWidth="1.8"
+      fill="none"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className={className}
+      aria-hidden="true"
+    >
+      <rect width="20" height="20" x="2" y="2" rx="5" ry="5" />
+      <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+      <line x1="17.5" x2="17.51" y1="6.5" y2="6.5" />
+    </svg>
+  );
+}
+
+function LinkedinIcon({ className = "w-4 h-4" }: { className?: string }) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      stroke="currentColor"
+      strokeWidth="1.8"
+      fill="none"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className={className}
+      aria-hidden="true"
+    >
+      <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
+      <rect width="4" height="12" x="2" y="9" />
+      <circle cx="4" cy="4" r="2" />
+    </svg>
+  );
+}
+
 // =======================================================================
 // 1. EDITABLE HOME CONSTANTS
 // =======================================================================
@@ -381,6 +419,39 @@ export default function HomePage() {
             </div>
           </motion.div>
         </section>
+
+        {/* =====================================================================
+            4. HOMEPAGE BOTTOM SOCIAL ICONS & FOOTER
+            ===================================================================== */}
+        <footer className="w-full flex flex-col items-center justify-center text-center px-4 mt-4 select-none">
+          <div className="flex items-center justify-center gap-3 mb-2.5">
+            {/* Instagram */}
+            <a
+              href="https://www.instagram.com/_.che_11?stkn=MmltZ2Z1ZmNkb3Rx&utm_source=qr"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Instagram Profile"
+              className="group flex items-center justify-center w-8 h-8 rounded-full bg-[#4A0E12]/80 hover:bg-[#521313] border border-[#AEC4D4]/30 text-[#AEC4D4] hover:text-[#F5EFE1] shadow-md hover:shadow-lg transition-all duration-300 hover:scale-110 active:scale-95"
+            >
+              <InstagramIcon className="w-4 h-4 transition-transform duration-300 group-hover:scale-110" />
+            </a>
+
+            {/* LinkedIn */}
+            <a
+              href="https://www.linkedin.com/in/che-shahith-7588b8334"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="LinkedIn Profile"
+              className="group flex items-center justify-center w-8 h-8 rounded-full bg-[#4A0E12]/80 hover:bg-[#521313] border border-[#AEC4D4]/30 text-[#AEC4D4] hover:text-[#F5EFE1] shadow-md hover:shadow-lg transition-all duration-300 hover:scale-110 active:scale-95"
+            >
+              <LinkedinIcon className="w-4 h-4 transition-transform duration-300 group-hover:scale-110" />
+            </a>
+          </div>
+
+          <p className="text-[10px] text-[#AEC4D4]/60 font-[var(--font-inter)] tracking-widest uppercase">
+            Che Shahith &bull; Portfolio
+          </p>
+        </footer>
       </div>
     </div>
   );

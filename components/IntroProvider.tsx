@@ -30,10 +30,6 @@ export function IntroProvider({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     setMounted(true);
 
-    const seen =
-      typeof window !== "undefined"
-        ? sessionStorage.getItem("art_portfolio_intro_seen")
-        : null;
     const prefersReducedMotion =
       typeof window !== "undefined"
         ? window.matchMedia("(prefers-reduced-motion: reduce)").matches
@@ -41,21 +37,13 @@ export function IntroProvider({ children }: { children: React.ReactNode }) {
 
     setIsReducedMotion(prefersReducedMotion);
 
-    if (seen === "true") {
-      setHasSeenIntro(true);
-      setIsIntroPlaying(false);
-      setIsIntroComplete(true);
-    } else {
-      setHasSeenIntro(false);
-      setIsIntroPlaying(true);
-      setIsIntroComplete(false);
-    }
+    // Always trigger intro on page refresh/mount
+    setHasSeenIntro(false);
+    setIsIntroPlaying(true);
+    setIsIntroComplete(false);
   }, []);
 
   const finishIntro = () => {
-    if (typeof window !== "undefined") {
-      sessionStorage.setItem("art_portfolio_intro_seen", "true");
-    }
     setIsIntroPlaying(false);
     setIsIntroComplete(true);
     setHasSeenIntro(true);

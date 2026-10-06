@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useEffect, useRef } from "react";
+import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { useIntro } from "./IntroProvider";
 
@@ -52,15 +53,23 @@ export const GREETINGS = [
 const GREETING_HOLD_MS = 550;
 
 export default function IntroOverlay() {
+  const pathname = usePathname();
   const { hasSeenIntro, isIntroPlaying, isReducedMotion, finishIntro } =
     useIntro();
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isSlidingUp, setIsSlidingUp] = useState(false);
   const timerRef = useRef<NodeJS.Timeout | null>(null);
 
+  // If user is directly on a subpage, automatically mark intro complete so they can view the subpage
+  useEffect(() => {
+    if (pathname !== "/" && !hasSeenIntro) {
+      finishIntro();
+    }
+  }, [pathname, hasSeenIntro, finishIntro]);
+
   // Lock body scroll while intro plays, unlock when complete
   useEffect(() => {
-    if (isIntroPlaying && !hasSeenIntro) {
+    if (pathname === "/" && isIntroPlaying && !hasSeenIntro) {
       document.body.style.overflow = "hidden";
     } else {
       document.body.style.overflow = "";
@@ -68,7 +77,7 @@ export default function IntroOverlay() {
     return () => {
       document.body.style.overflow = "";
     };
-  }, [isIntroPlaying, hasSeenIntro]);
+  }, [pathname, isIntroPlaying, hasSeenIntro]);
 
   // Handle prefers-reduced-motion
   useEffect(() => {
@@ -79,7 +88,7 @@ export default function IntroOverlay() {
 
   // Fast sequential cycling through greetings
   useEffect(() => {
-    if (!isIntroPlaying || hasSeenIntro || isSlidingUp || isReducedMotion) return;
+    if (pathname !== "/" || !isIntroPlaying || hasSeenIntro || isSlidingUp || isReducedMotion) return;
 
     if (currentIndex < GREETINGS.length) {
       timerRef.current = setTimeout(() => {
@@ -95,7 +104,7 @@ export default function IntroOverlay() {
     return () => {
       if (timerRef.current) clearTimeout(timerRef.current);
     };
-  }, [currentIndex, isIntroPlaying, hasSeenIntro, isSlidingUp, isReducedMotion]);
+  }, [pathname, currentIndex, isIntroPlaying, hasSeenIntro, isSlidingUp, isReducedMotion]);
 
   const handleSlideUp = () => {
     if (timerRef.current) clearTimeout(timerRef.current);
@@ -107,7 +116,7 @@ export default function IntroOverlay() {
     handleSlideUp();
   };
 
-  if (hasSeenIntro && !isSlidingUp) {
+  if (pathname !== "/" || (hasSeenIntro && !isSlidingUp)) {
     return null;
   }
 

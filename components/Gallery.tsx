@@ -2,10 +2,10 @@
 
 import React, { useState } from "react";
 import Image from "next/image";
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import { Artwork } from "@/data/artworks";
 import Lightbox from "./Lightbox";
-import { Eye, AlertCircle, Sparkles, ZoomIn } from "lucide-react";
+import { Eye, Sparkles, ZoomIn } from "lucide-react";
 
 interface GalleryProps {
   items: Artwork[];
@@ -14,6 +14,7 @@ interface GalleryProps {
 
 export default function Gallery({ items, variant = "oil" }: GalleryProps) {
   const [selectedArtworkIndex, setSelectedArtworkIndex] = useState<number | null>(null);
+  const shouldReduceMotion = useReducedMotion();
 
   // Empty State
   if (!items || items.length === 0) {
@@ -32,16 +33,20 @@ export default function Gallery({ items, variant = "oil" }: GalleryProps) {
 
   return (
     <>
-      <div className="max-w-7xl mx-auto px-3.5 sm:px-6 lg:px-8 pb-36">
+      <div className="max-w-7xl mx-auto px-3.5 sm:px-6 lg:px-8 pb-36 overflow-x-hidden">
         {/* Responsive CSS Column Masonry */}
         <div className="columns-1 sm:columns-2 lg:columns-3 gap-6 sm:gap-8 space-y-6 sm:space-y-8 [column-fill:_balance]">
           {items.map((artwork, index) => {
             const isFirstRow = index < 3;
+            const isEven = index % 2 === 0;
+            const isUglyVariant = variant === "worst" || variant === "ugly";
+
+            // Sideways scroll entrance for ugly art and galleries
+            const initialX = isEven ? -75 : 75;
 
             // Rotation angle for ugly/worst art variant
-            const isUglyVariant = variant === "worst" || variant === "ugly";
             const tiltRotation = isUglyVariant
-              ? index % 2 === 0
+              ? isEven
                 ? "-rotate-1 sm:-rotate-2"
                 : "rotate-1 sm:rotate-2"
               : "";
@@ -49,10 +54,26 @@ export default function Gallery({ items, variant = "oil" }: GalleryProps) {
             return (
               <motion.div
                 key={artwork.id}
-                initial={{ opacity: 0, y: 24 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-20px" }}
-                transition={{ duration: 0.5, delay: (index % 3) * 0.08 }}
+                initial={
+                  shouldReduceMotion
+                    ? false
+                    : isUglyVariant
+                    ? { opacity: 0, x: initialX, scale: 0.96 }
+                    : { opacity: 0, y: 24 }
+                }
+                whileInView={
+                  shouldReduceMotion
+                    ? {}
+                    : isUglyVariant
+                    ? { opacity: 1, x: 0, scale: 1 }
+                    : { opacity: 1, y: 0 }
+                }
+                viewport={{ once: true, amount: 0.15, margin: "-20px" }}
+                transition={{
+                  duration: isUglyVariant ? 0.65 : 0.5,
+                  delay: shouldReduceMotion ? 0 : (index % 3) * 0.08,
+                  ease: [0.22, 1, 0.36, 1],
+                }}
                 className="break-inside-avoid inline-block w-full mb-6 sm:mb-8"
               >
                 {/* Variant 1: OIL PAINTINGS (Refined Museum Gold Framed Presentation) */}
@@ -150,26 +171,14 @@ export default function Gallery({ items, variant = "oil" }: GalleryProps) {
                         className="w-full h-auto object-contain transform group-hover:scale-102 transition-transform duration-500 ease-out"
                       />
                     </div>
-
-                    <div className="mt-3 pt-2 border-t border-[#790D16]/15 flex items-center justify-between text-xs text-[#790D16]">
-                      <div>
-                        <span className="font-[var(--font-playfair)] italic text-sm sm:text-base font-normal text-[#790D16] block">
-                          {artwork.title}
-                        </span>
-                        <span className="font-[var(--font-inter)] text-[11px] text-[#790D16]/70">{artwork.medium}</span>
-                      </div>
-                      <span className="font-mono text-[11px] text-[#790D16]/80 font-semibold shrink-0 ml-2">
-                        {artwork.year}
-                      </span>
-                    </div>
                   </div>
                 )}
 
-                {/* Variant 3: UGLY ART (Tactile Polaroid-Style Sketchbook Cards) */}
-                {(variant === "worst" || variant === "ugly") && (
+                {/* Variant 3: UGLY ART (Tactile Polaroid-Style Sketchbook Cards without description) */}
+                {isUglyVariant && (
                   <div
                     onClick={() => setSelectedArtworkIndex(index)}
-                    className={`group relative rounded-2xl p-4 sm:p-5 bg-[#E5D3AF] border border-[#790D16]/25 shadow-md hover:shadow-xl ${tiltRotation} transition-all duration-300 active:scale-[0.98] cursor-pointer overflow-visible`}
+                    className={`group relative rounded-2xl p-3.5 sm:p-4 bg-[#E5D3AF] border border-[#790D16]/25 shadow-md hover:shadow-xl ${tiltRotation} transition-all duration-300 active:scale-[0.98] cursor-pointer overflow-visible`}
                   >
                     {/* Washi Tape Graphic */}
                     <div
@@ -178,7 +187,7 @@ export default function Gallery({ items, variant = "oil" }: GalleryProps) {
                     />
 
                     {/* Image Canvas Container */}
-                    <div className="relative overflow-hidden rounded-xl bg-[#F5EFE1] border-2 border-[#790D16]/20 shadow-inner p-1.5 mt-1">
+                    <div className="relative overflow-hidden rounded-xl bg-[#F5EFE1] border-2 border-[#790D16]/20 shadow-inner p-1 mt-1">
                       <Image
                         src={artwork.src}
                         alt={artwork.alt}
@@ -190,29 +199,14 @@ export default function Gallery({ items, variant = "oil" }: GalleryProps) {
                       />
                     </div>
 
-                    {/* Handwritten Caption & Notes */}
-                    <div className="mt-3.5 pt-1">
-                      <div className="flex items-start justify-between gap-2">
-                        <h3 className="font-[var(--font-caveat)] text-2xl sm:text-3xl text-[#790D16] font-bold leading-tight">
-                          {artwork.title}
-                        </h3>
-                        <span className="font-[var(--font-caveat)] text-lg text-[#790D16]/75 shrink-0">
-                          ({artwork.year})
-                        </span>
-                      </div>
-
-                      {/* What Went Wrong Callout */}
-                      {artwork.note && (
-                        <div className="mt-2.5 p-3 rounded-xl bg-[#F5EFE1] border border-[#790D16]/20 shadow-sm text-xs">
-                          <div className="flex items-center gap-1.5 text-[#790D16] font-semibold uppercase tracking-wider mb-1">
-                            <AlertCircle className="w-3.5 h-3.5 text-[#790D16]" />
-                            <span>What went wrong:</span>
-                          </div>
-                          <p className="font-[var(--font-caveat)] text-base sm:text-lg text-[#790D16]/90 leading-snug">
-                            {artwork.note}
-                          </p>
-                        </div>
-                      )}
+                    {/* Subtle Polaroid Bottom Strip with Title & Year (No Description) */}
+                    <div className="mt-2.5 px-1 flex items-center justify-between gap-2">
+                      <h3 className="font-[var(--font-caveat)] text-xl sm:text-2xl text-[#790D16] font-bold leading-tight truncate">
+                        {artwork.title}
+                      </h3>
+                      <span className="font-[var(--font-caveat)] text-base sm:text-lg text-[#790D16]/75 shrink-0">
+                        {artwork.year}
+                      </span>
                     </div>
                   </div>
                 )}
